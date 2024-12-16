@@ -1,0 +1,34 @@
+*&---------------------------------------------------------------------*
+*& Report ZEDR07_004
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZEDR07_004.
+
+DATA : BEGIN OF GS_STUDENT,
+  ZCODE TYPE C LENGTH 10,
+  ZKNAME TYPE C LENGTH 10,
+  ZENAME TYPE C LENGTH 10,
+END OF GS_STUDENT.
+
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+*CLEAR : GS_STUDENT.
+GS_STUDENT-ZCODE = 'SSU-02'.
+GS_STUDENT-ZKNAME = '이제훈'.
+GS_STUDENT-ZENAME = 'LEE'.
+INSERT GS_STUDENT INTO TABLE GT_STUDENT.
+
+*CLEAR : GS_STUDENT.
+GS_STUDENT-ZCODE = 'SSU-01'.
+GS_STUDENT-ZKNAME = '강동원'.
+GS_STUDENT-ZENAME = 'DONG'.
+INSERT GS_STUDENT INTO TABLE GT_STUDENT.
+
+*CLEAR : GS_STUDENT.
+GS_STUDENT-ZCODE = 'SSU-03'.
+GS_STUDENT-ZKNAME = '송중기'.
+GS_STUDENT-ZENAME = 'SONG'.
+INSERT GS_STUDENT INTO GT_STUDENT INDEX 2.
+
+BREAK-POINT.
