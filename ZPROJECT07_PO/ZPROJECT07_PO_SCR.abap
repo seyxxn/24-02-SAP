@@ -1,0 +1,22 @@
+*&---------------------------------------------------------------------*
+*&  Include           ZPROJECT07_PO_SCR
+*&---------------------------------------------------------------------*
+SELECTION-SCREEN BEGIN OF BLOCK B1 WITH FRAME.
+  "생성 : 회사코드, 구매처, 증빙일
+  "조회 : 구매처번호, 회사코드, po번호
+  PARAMETERS : P_BUKRS TYPE ZEKKO07-BUKRS DEFAULT 1000. "회사코드
+  PARAMETERS : P_LIFNR TYPE ZEKKO07-LIFNR. "구매처번호
+  "생성 때만 보임
+  PARAMETERS : P_BEDAT TYPE ZEKKO07-BEDAT MODIF ID M1. "증빙일 (필수)
+
+  "조회 때만 보임
+*  PARAMETERS : P_EBELN TYPE ZEKKO07-EBELN MODIF ID M2. "PO 번호 (필수)
+  SELECT-OPTIONS: S_EBELN FOR ZEKKO07-EBELN MODIF ID M2.        "PO번호.
+
+SELECTION-SCREEN END OF BLOCK B1.
+
+
+SELECTION-SCREEN BEGIN OF BLOCK B2 WITH FRAME.
+  PARAMETERS : P_R1 RADIOBUTTON GROUP R1 USER-COMMAND UC1 DEFAULT 'X'. "생성
+  PARAMETERS : P_R2 RADIOBUTTON GROUP R1. "조회
+SELECTION-SCREEN END OF BLOCK B2.
