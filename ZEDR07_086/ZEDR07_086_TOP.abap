@@ -1,0 +1,32 @@
+*&---------------------------------------------------------------------*
+*&  Include           ZEDR07_086_TOP
+*&---------------------------------------------------------------------*
+
+TABLES : ZEDT07_001.
+
+DATA : BEGIN OF GS_STUDENT,
+  ZCODE LIKE ZEDT07_001-ZCODE,
+  ZPERNR LIKE ZEDT07_001-ZPERNR,
+  ZKNAME LIKE ZEDT07_001-ZKNAME,
+  ZENAME LIKE ZEDT07_001-ZENAME,
+  ZGENDER LIKE ZEDT07_001-ZGENDER,
+  END OF GS_STUDENT.
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+DATA : OK_CODE TYPE SY-UCOMM. "OK_CODE
+
+"객체 변수 선언
+DATA : GC_CUSTOM TYPE REF TO CL_GUI_CUSTOM_CONTAINER. "참조한 객체 변수를 먼저 선언
+
+"그리드 생성
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+"필드카탈로그
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT. "타입주의
+DATA : GT_FIELDCAT TYPE LVC_T_FCAT. "타입주의
+"레이아웃
+DATA : GS_LAYOUT TYPE LVC_S_LAYO. "타입주의
+
+"SORT
+DATA : GS_SORT TYPE LVC_S_SORT. "타입주의
+DATA : GT_SORT TYPE LVC_T_SORT. "타입주의
