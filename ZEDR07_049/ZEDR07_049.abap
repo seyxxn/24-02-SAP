@@ -1,0 +1,37 @@
+*&---------------------------------------------------------------------*
+*& Report ZEDR07_049
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZEDR07_049.
+
+DATA : BEGIN OF GS_STUDENT.
+  INCLUDE TYPE ZEDT07_001.
+  DATA : END OF GS_STUDENT.
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+CLEAR : GS_STUDENT, GT_STUDENT.
+"이미 있는 값
+GS_STUDENT-ZCODE = 'SSU-25'.
+GS_STUDENT-ZPERNR = '0000000025'.
+GS_STUDENT-ZKNAME = '윤아'.
+GS_STUDENT-ZENAME = 'YOONAH'.
+GS_STUDENT-ZGENDER = 'F'.
+GS_STUDENT-ZTEL = '01000002222'.
+APPEND GS_STUDENT TO GT_STUDENT.
+
+"새로 넣는 값
+CLEAR : GS_STUDENT.
+GS_STUDENT-ZCODE = 'SSU-26'.
+GS_STUDENT-ZPERNR = '0000000026'.
+GS_STUDENT-ZKNAME = '정해인'.
+GS_STUDENT-ZENAME = 'JUNG'.
+GS_STUDENT-ZGENDER = 'M'.
+GS_STUDENT-ZTEL = '01000006666'.
+APPEND GS_STUDENT TO GT_STUDENT.
+
+MODIFY ZEDT07_001 FROM TABLE GT_STUDENT.
+
+IF SY-SUBRC = 0.
+  WRITE :/ '데이터변경 성공'.
+ENDIF.
