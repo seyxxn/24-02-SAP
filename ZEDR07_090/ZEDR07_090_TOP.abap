@@ -1,0 +1,39 @@
+*&---------------------------------------------------------------------*
+*&  Include           ZEDR07_090_TOP
+*&---------------------------------------------------------------------*
+
+TABLES : ZEDT07_001. "데이터 가져올 DB 선언
+
+DATA : BEGIN OF GS_STUDENT, "구조체 선언
+  ZCODE LIKE ZEDT07_001-ZCODE, "학생코드
+  ZPERNR LIKE ZEDT07_001-ZPERNR, "출석번호
+  ZKNAME LIKE ZEDT07_001-ZKNAME, "한글이름
+  ZENAME LIKE ZEDT07_001-ZENAME, "영문이름
+  ZGENDER LIKE ZEDT07_001-ZGENDER, "성별
+END OF GS_STUDENT.
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT. "인터널테이블 선언
+
+DATA : OK_CODE TYPE SY-UCOMM. "OK_CODE
+
+"도킹컨테이너 객체 변수 선언
+DATA : GC_DOCKING TYPE REF TO CL_GUI_DOCKING_CONTAINER.
+
+"그리드 객체 변수 선언
+DATA : GC_GRID TYPE REF TO CL_GUI_ALV_GRID.
+
+"필드 카탈로드
+DATA : GS_FIELDCAT TYPE LVC_S_FCAT.
+DATA : GT_FIELDCAT TYPE LVC_T_FCAT.
+
+"정렬
+DATA : GS_SORT TYPE LVC_S_SORT.
+DATA : GT_SORT TYPE LVC_T_SORT.
+
+"레이아웃
+DATA : GS_LAYOUT TYPE LVC_S_LAYO.
+
+"레이아웃 변경 변수 선언
+DATA : GS_VARIANT TYPE DISVARIANT.
+
+"EVENT 변수 생성
+DATA : GO_EVENT TYPE REF TO EVENT.
