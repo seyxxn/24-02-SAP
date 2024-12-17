@@ -1,0 +1,56 @@
+*&---------------------------------------------------------------------*
+*& Report ZEDR07_072
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZEDR07_072.
+
+DATA : BEGIN OF GS_STUDENT.
+  INCLUDE TYPE ZEDT07_001.
+DATA : END OF GS_STUDENT.
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+DATA : GV_ZCODE LIKE ZEDT07_001-ZCODE.
+DATA : GV_ZKNAME LIKE ZEDT07_001-ZKNAME.
+
+GV_ZCODE = 'SSU-02'.
+
+PERFORM GET_DATA USING GV_ZCODE  "USING : 데이터를 전달
+                 CHANGING GV_ZKNAME. "CHANGING : 데이터를 전달하고 변경
+"넘겨주는 파라미터 -> ACTUAL PARAMETER
+"PERFORM 만나면 FORM문 수행
+
+
+WRITE :/ GV_ZCODE.
+WRITE :/ GV_ZKNAME.
+
+*FORM GET_DATA USING P_ZCODE P_ZKNAME. "받는 파라미터 -> FORMAL PARAMETER
+*  SELECT SINGLE ZKNAME FROM ZEDT07_001
+*  INTO P_ZKNAME
+*  WHERE ZCODE = P_ZCODE.
+*ENDFORM. "ENDFORM 만나면 SUBROUTINE 종료됨
+
+*FORM GET_DATA USING P_ZCODE P_ZKNAME.
+*  DATA : LV_ZCODE LIKE ZEDT07_001-ZCODE.
+*  LV_ZCODE = 'SSU-01'.
+*
+*  SELECT SINGLE ZKNAME FROM ZEDT07_001
+*  INTO P_ZKNAME
+*  WHERE ZCODE = LV_ZCODE.
+*
+*  P_ZCODE = LV_ZCODE.
+*  원래 들어온 값은 SSU-01인데 지역변수의 값으로 덮었기 때문에 SSU-02가 출력됨
+*  만약, 원래의 값을 유지하고 싶다면 ?
+*   -> USING VALUE를 이용하면 됨
+*ENDFORM.
+
+FORM GET_DATA USING VALUE(P_ZCODE) P_ZKNAME.
+  DATA : LV_ZCODE LIKE ZEDT07_001-ZCODE.
+  LV_ZCODE = 'SSU-01'.
+
+  SELECT SINGLE ZKNAME FROM ZEDT07_001
+  INTO P_ZKNAME
+  WHERE ZCODE = P_ZCODE.
+
+  P_ZCODE = LV_ZCODE. "USING VALUE 구문을 사용했기 때문에 P_ZCODE의 값을 바뀌어도 전달되지 않음
+ENDFORM.
