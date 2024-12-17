@@ -1,0 +1,35 @@
+*&---------------------------------------------------------------------*
+*& Report ZEDR07_077
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZEDR07_077.
+
+DATA : BEGIN OF GS_STUDENT.
+  INCLUDE TYPE ZEDT07_001.
+  DATA : END OF GS_STUDENT.
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+DATA : GV_FLAG.
+
+"SELECT DATA
+SELECT SINGLE * FROM ZEDT07_001
+  INTO GS_STUDENT WHERE ZCODE = 'SSU-01'.
+
+PERFORM DELETE_DATA USING GS_STUDENT.
+PERFORM INSERT_DATA ON COMMIT.
+"ON COMMIT 구문 -> COMMIT WORK를 만날 때 수행함
+
+IF GV_FLAG = 'X'.
+  COMMIT WORK.
+ENDIF.
+
+FORM DELETE_DATA USING PS_STUDENT LIKE GS_STUDENT.
+  DELETE ZEDT07_001 FROM PS_STUDENT.
+  IF SY-SUBRC = 0.
+    GV_FLAG = 'X'.
+  ENDIF.
+ENDFORM.
+
+FORM INSERT_DATA.
+  INSERT ZEDT07_001 FROM GS_STUDENT.
+ENDFORM.
