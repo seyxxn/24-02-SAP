@@ -1,0 +1,28 @@
+*&---------------------------------------------------------------------*
+*&  Include           ZEDT01_HW003_PBO
+*&---------------------------------------------------------------------*
+
+MODULE STATUS_0100 OUTPUT.
+
+  SET PF-STATUS 'STATUS_0100'.
+  SET TITLEBAR 'T0100'.
+
+ENDMODULE.
+
+MODULE SET_ALV OUTPUT.
+
+  PERFORM CREATE_OBJECT.
+  PERFORM FIELD_CATALOG.
+  PERFORM ALV_SORT.
+  PERFORM ALV_LAYOUT.
+  PERFORM CLASS_EVENT.
+  PERFORM CALL_ALV.
+
+ENDMODULE.
+
+MODULE STATUS_0200 OUTPUT.
+
+  SET PF-STATUS 'STATUS_0200'.
+  SET TITLEBAR 'T0200'.
+
+ENDMODULE.
