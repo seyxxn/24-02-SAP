@@ -1,0 +1,41 @@
+*&---------------------------------------------------------------------*
+*& Report ZEDR07_042
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT ZEDR07_042.
+
+DATA : BEGIN OF GS_STUDENT.
+  INCLUDE TYPE ZEDT07_001.
+  DATA : END OF GS_STUDENT.
+DATA : GT_STUDENT LIKE TABLE OF GS_STUDENT.
+
+CLEAR : GS_STUDENT, GT_STUDENT.
+GS_STUDENT-ZCODE = 'SSU-22'.
+GS_STUDENT-ZPERNR = '0000000022'.
+GS_STUDENT-ZKNAME = '가나다'.
+GS_STUDENT-ZENAME = 'DA'.
+GS_STUDENT-ZGENDER = 'F'.
+GS_STUDENT-ZTEL = '01000002222'.
+APPEND GS_STUDENT TO GT_STUDENT.
+"이미 들어있는 값이다
+
+CLEAR : GS_STUDENT.
+GS_STUDENT-ZCODE = 'SSU-24'.
+GS_STUDENT-ZPERNR = '0000000024'.
+GS_STUDENT-ZKNAME = '김수현'.
+GS_STUDENT-ZENAME = 'SOO'.
+GS_STUDENT-ZGENDER = 'M'.
+GS_STUDENT-ZTEL = '01000004444'.
+APPEND GS_STUDENT TO GT_STUDENT.
+"새로운 값
+
+INSERT ZEDT07_001 FROM TABLE GT_STUDENT ACCEPTING DUPLICATE KEYS.
+"ACCEPTING DUPLICATE KEYS 구문을 추가하면 이미 있는 값이라도 오류가 나지않고 값이 들어가지 않음
+"새로운 값만 들어감
+
+IF SY-SUBRC = 0.
+  WRITE :/ '성공'.
+ELSE.
+  WRITE :/ '실패'.
+ENDIF.
